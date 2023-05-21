@@ -539,7 +539,8 @@ ${jobs_html}
   }
   
   // Set the cron job to run every 15 seconds
-  cron.schedule('10 13 * * 0', async () => {
+  const cronSchedule = '16 21 * * 0'; // Adjusted schedule for PST (1:16 PM PST)
+  cron.schedule(cronSchedule, async () => {
     // Get all users that want to receive emails
     const { data: users, error } = await supabase
       .from('Users')
