@@ -19,7 +19,7 @@ emailjs.init({
     privateKey: process.env.EMAILJS_PRIVATE_KEY, // optional, highly recommended for security reasons
  });
   
-const port = 3000;
+const port = process.env.PORT || 3001;
 server.listen(port, () => {
     console.log(`Server running at http://localhost:${port}/`); 
 });
@@ -539,7 +539,7 @@ ${jobs_html}
   }
   
   // Set the cron job to run every 15 seconds
-  cron.schedule('0 13 * * 0', async () => {
+  cron.schedule('10 13 * * 0', async () => {
     // Get all users that want to receive emails
     const { data: users, error } = await supabase
       .from('Users')
