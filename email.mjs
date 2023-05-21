@@ -540,7 +540,7 @@ ${jobs_html}
   
   // Set the cron job to run every 15 seconds
   // const cronSchedule = '16 21 * * 0'; // Adjusted schedule for PST (1:16 PM PST)
-  const cronSchedule = '*/5 * * * *'; // Run every 5 minutes
+  const cronSchedule = '30 9 * * 0'; // Run every Sunday at 9:30 AM
   cron.schedule(cronSchedule, async () => {
     // Get all users that want to receive emails
     const { data: users, error } = await supabase
