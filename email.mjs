@@ -47,7 +47,8 @@ server.listen(port, () => {
   const fetch_all_jobs = async () => {
     const { data: jobs, error } = await supabase
       .from('Positions')
-      .select('*');
+      .select('*')
+      .order('created_at', {ascending: false});
     
     if (error) {
       console.error('Error fetching jobs:', error);
@@ -578,7 +579,6 @@ server.listen(port, () => {
   // Set the cron job to run every 15 seconds (TESTING)
   // const cronSchedule = '*/15 * * * * *';
 
-  // const cronSchedule = '16 21 * * 0'; // Adjusted schedule for PST (1:16 PM PST)
   const cronSchedule = '30 9 * * 0'; // Run every Sunday at 9:30 AM
   cron.schedule(cronSchedule, async () => {
     // Get all users that want to receive emails
@@ -586,7 +586,7 @@ server.listen(port, () => {
       .from('Users')
       .select('email_address')
       .eq('email_preference', true);
-  
+
     if (error) {
       console.error('Error fetching users:', error);
       return;
