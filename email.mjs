@@ -585,8 +585,7 @@ server.listen(port, () => {
     const { data: users, error } = await supabase
       .from('Users')
       .select('email_address')
-      .eq('email_preference', true)
-      .eq('email_address', 'jliu5021@usc.edu');
+      .eq('email_preference', true);
   
     if (error) {
       console.error('Error fetching users:', error);
