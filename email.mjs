@@ -79,13 +79,11 @@ server.listen(port, () => {
       // if the job give sponsorship and the criteria can be either YES OR NO
       // if the job does not give sponsorship and the criteria must be NO
       if ((position.Sponsorship === "YES") || (position.Sponsorship=== "NO" && user_info.sponsorship === "NO") || (user_info.sponsorship === null)) {
-        if(position.Diversity.includes(user_info.race) || (user_info.race === null)){
-          if(position.GradeLevel.includes(user_info.class) || (user_info.class === null)){
-            // if the job type is the same as the criteria job type
-            if ((position.Position === user_info.job_title) || (user_info.job_title === null)) {
-              return true;
-            } 
-          }
+        if(position.GradeLevel.includes(user_info.class) || (user_info.class === null)){
+          // if the job type is the same as the criteria job type
+          if ((position.Position === user_info.job_title) || (user_info.job_title === null)) {
+            return true;
+          } 
         }
       }
       return false;
@@ -100,11 +98,14 @@ server.listen(port, () => {
     );
     
     // if the length of the filtered data is over 10, only send the first 10 jobs
-    if (filtered_data.length > 10) {
-      filtered_data = filtered_data.slice(0,10);
+    if (filtered_data.length > 5) {
+      filtered_data = filtered_data.slice(0,5);
     }
 
-    // Assuming filtered_data is an array of objects containing the data
+    if(filtered_data.length < 1){
+      // if there is no job that matches the user's criteria, don't send an email to user 
+      return;
+    }
 
     // Generate the HTML code for each entry using a for loop
     let jobs_html = '';
@@ -584,7 +585,8 @@ server.listen(port, () => {
     const { data: users, error } = await supabase
       .from('Users')
       .select('email_address')
-      .eq('email_preference', true);
+      .eq('email_preference', true)
+      .eq('email_address', 'jliu5021@usc.edu');
   
     if (error) {
       console.error('Error fetching users:', error);
