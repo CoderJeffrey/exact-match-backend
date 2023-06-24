@@ -55,6 +55,7 @@ data = []
 for row in rows[2:]:
     values = row.split("|")[1:]
     values = [value.strip() for value in values]
+    if len(values) == 0: continue
     name = values[0]
     link = "null"
     match = re.search(r"\[(.*?)\]\((.*?)\)", name)

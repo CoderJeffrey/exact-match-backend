@@ -131,7 +131,9 @@ const uploadJsonToSupabase = async () => {
           GradeLevel: accepted_grade_level,
           Diversity: diversity,
         },
-      ]);
+      ], {
+        onConflict: ['Company', 'Position']
+      });
 
       if (upsertError) {
         console.error("Error upserting positions:", upsertError);
@@ -383,7 +385,7 @@ cron.schedule(cronSchedule, async () => {
   await callPythonScript();
   await uploadJsonToSupabase();
 
-  // Get all users that want to receive emails and only send to jliu5021@usc.edu
+  // Get all users that want to receive emails
   const { data: users, error } = await supabase
     .from("Users")
     .select("email_address")
