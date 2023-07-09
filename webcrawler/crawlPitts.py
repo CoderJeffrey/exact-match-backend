@@ -60,6 +60,9 @@ for row in rows[2:]:
     link = "null"
     match = re.search(r"\[(.*?)\]\((.*?)\)", name)
     print(match)
+    sponsorship = "Yes"
+    if "sponsorship" in values[2].lower() or "citizen" in values[2].lower():
+        sponsorship = "No"
     if match:
         name = match.group(1)
         link = match.group(2)
@@ -67,7 +70,7 @@ for row in rows[2:]:
         "Name": name,
         "Location": values[1],
         "Notes": values[2],
-        "Sponsorship": "No" if "sponsorship" in values[2].lower() else "Yes",
+        "Sponsorship": sponsorship,
         "Link": link
     })
 
