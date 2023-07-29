@@ -378,11 +378,9 @@ const send_emails = async (users) => {
 // Set the cron job to run every 15 seconds (TESTING)
 // const cronSchedule = '*/15 * * * * *';
 // Set the cron job to run every 1 minutes (TESTING)
-const cronSchedule = '*/2 * * * *';
+// const cronSchedule = '*/2 * * * *';
 
-// const cronSchedule = "30 9 * * 0"; // Run every Sunday at 9:30 AM
-// Run a cron schedule that send out email every Saturday at 1;20 PM PST
-// const cronSchedule = "25 13 * * 6"; // Run every Saturday at 1:20 PM PST
+const cronSchedule = "00 14 * * 6"; // Run every Saturday at 2:00 PM PST
 cron.schedule(cronSchedule, async () => {
   await callPythonScript();
   await uploadJsonToSupabase();
@@ -391,8 +389,8 @@ cron.schedule(cronSchedule, async () => {
   const { data: users, error } = await supabase
     .from("Users")
     .select("email_address")
-    .eq("email_preference", true)
-    .eq("email_address", "jliu5021@usc.edu"); //(TESTING)
+    .eq("email_preference", true);
+    // .eq("email_address", "jliu5021@usc.edu"); //(TESTING)
 
   if (error) {
     console.error("Error fetching users:", error);
