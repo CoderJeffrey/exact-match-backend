@@ -378,11 +378,11 @@ const send_emails = async (users) => {
 // Set the cron job to run every 15 seconds (TESTING)
 // const cronSchedule = '*/15 * * * * *';
 // Set the cron job to run every 1 minutes (TESTING)
-// const cronSchedule = '*/1 * * * *';
+const cronSchedule = '*/2 * * * *';
 
 // const cronSchedule = "30 9 * * 0"; // Run every Sunday at 9:30 AM
 // Run a cron schedule that send out email every Saturday at 1;20 PM PST
-const cronSchedule = "17 13 * * 6"; // Run every Saturday at 1:20 PM PST
+// const cronSchedule = "25 13 * * 6"; // Run every Saturday at 1:20 PM PST
 cron.schedule(cronSchedule, async () => {
   await callPythonScript();
   await uploadJsonToSupabase();
